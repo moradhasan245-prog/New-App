@@ -1,0 +1,6 @@
+{
+  "name": "ইমাম খাদ্য সেবা",
+  "description": "মসজিদের সম্মানিত ইমাম সাহেবের খাবার রোটেশন, সময়সূচী, ইউজার ট্র্যাকিং, প্রিন্ট ফরম ও ডাটা ব্যাকআপ পরিচালনা অ্যাপ।",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>আহার ও মেহমানদারীর দোয়াসমূহ - ইমাম খাদ্য সেবা</title>
+    <meta name="description" content="খাবার শুরুর দোয়া, খাবার শেষের দোয়া, মেহমানদারীর দোয়া, দুধ পান করার দোয়া সহ যাবতীয় সুন্নাত ও মাসনূন দোয়ার ডিজিটাল ভাণ্ডার।" />
+
+    <!-- Firebase SDK (v8) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <!-- Google Fonts for Bengali, English and Arabic Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-light: #8b5cf6;
+            --primary-dark: #6d28d9;
+            --primary-soft: rgba(124, 58, 237, 0.08);
+            --primary-gradient: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --card-hover: #fcfdfe;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --text-muted: #94a3b8;
+            --border-color: #e2e8f0;
+            --border-light: #f1f5f9;
+            --accent-green: #10b981;
+            --accent-green-soft: rgba(16, 185, 129, 0.1);
+            --accent-red: #ef4444;
+            --accent-yellow: #f59e0b;
+            --arabic-color: #1e293b;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.06), 0 2px 4px -1px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 25px -5px rgba(124, 58, 237, 0.2);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --font-scale: 1;
+        }
+
+        /* Color Themes */
+        body[data-theme="dark"] {
+            --bg-color: #0b0f19;
+            --card-bg: #151d30;
+            --card-hover: #1c263e;
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: #243048;
+            --border-light: #1c263e;
+            --primary-soft: rgba(139, 92, 246, 0.15);
+            --primary-gradient: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
+            --arabic-color: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.4);
+        }
+
+        body[data-theme="emerald"] {
+            --primary: #059669;
+            --primary-light: #10b981;
+            --primary-dark: #047857;
+            --primary-soft: rgba(5, 150, 105, 0.08);
+            --primary-gradient: linear-gradient(135deg, #10b981 0%, #047857 100%);
+            --bg-color: #f2fbf6;
+            --card-bg: #ffffff;
+            --border-color: #d1fae5;
+            --arabic-color: #064e3b;
+            --shadow-lg: 0 10px 25px -5px rgba(5, 150, 105, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Hind Siliguri', 'Plus Jakarta Sans', system-ui, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            line-height: 1.5;
+            padding-bottom: 30px;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            position: relative;
+            background: transparent;
+        }
+
+        /* Top Header */
+        .app-header {
+            background: var(--card-bg);
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            backdrop-filter: blur(8px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .brand-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+
+        .back-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateX(-2px);
+        }
+
+        .app-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .app-subtitle {
+            font-size: 0.65rem;
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-size: 0.85rem;
+        }
+
+        .header-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .svg-icon {
+            width: 17px;
+            height: 17px;
+            fill: currentColor;
+            display: inline-block;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+
+        /* Banner Hero Card */
+        .dua-hero {
+            background: var(--primary-gradient);
+            color: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin: 12px 14px 10px 14px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dua-hero::after {
+            content: "🤲";
+            position: absolute;
+            right: -10px;
+            bottom: -15px;
+            font-size: 5rem;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+
+        .dua-hero-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dua-hero-desc {
+            font-size: 0.76rem;
+            opacity: 0.92;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .dua-hero-stats {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(6px);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Search and Tools Bar */
+        .controls-section {
+            padding: 0 14px;
+            margin-bottom: 12px;
+        }
+
+        .search-box-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 8px 34px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-main);
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary-soft);
+        }
+
+        .search-ico {
+            position: absolute;
+            left: 10px;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 2px;
+            display: none;
+        }
+
+        /* Category Chips Bar */
+        .filter-tabs-row {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 2px;
+        }
+        .filter-tabs-row::-webkit-scrollbar { display: none; }
+
+        .tab-chip {
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-sub);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }
+
+        .tab-chip.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 2px 6px rgba(124, 58, 237, 0.25);
+        }
+
+        /* Action Buttons Row */
+        .action-tools-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .btn-action-tool {
+            padding: 7px 10px;
+            border-radius: 9px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-main);
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-action-tool:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-action-tool.highlight {
+            background: var(--primary-soft);
+            border-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Font Adjust Bar */
+        .font-adjust-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 9px;
+            padding: 5px 10px;
+            margin-top: 8px;
+            font-size: 0.72rem;
+            color: var(--text-sub);
+        }
+
+        .font-btn-group {
+            display: flex;
+            gap: 4px;
+        }
+
+        .btn-font-sm {
+            padding: 2px 7px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        /* Main Dua List */
+        .dua-list-container {
+            padding: 0 14px;
+        }
+
+        .dua-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.18s ease;
+            position: relative;
+        }
+
+        .dua-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .dua-card.custom-badge-card {
+            border-left: 3.5px solid var(--accent-green);
+        }
+
+        .dua-header-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--border-light);
+        }
+
+        .dua-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dua-index-pill {
+            width: 24px;
+            height: 24px;
+            border-radius: 7px;
+            background: var(--primary-soft);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .dua-card-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .category-tag {
+            font-size: 0.65rem;
+            padding: 2px 7px;
+            border-radius: 5px;
+            background: var(--bg-color);
+            color: var(--text-sub);
+            border: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+
+        /* Arabic Typography */
+        .arabic-text-box {
+            font-family: 'Amiri', 'Scheherazade New', serif;
+            font-size: calc(1.35rem * var(--font-scale));
+            line-height: 1.85;
+            color: var(--arabic-color);
+            text-align: right;
+            direction: rtl;
+            background: var(--bg-color);
+            padding: 12px 14px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-light);
+            letter-spacing: 0.3px;
+        }
+
+        /* Pronunciation & Meaning */
+        .dua-section-group {
+            margin-bottom: 8px;
+        }
+
+        .section-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .pronunciation-text {
+            font-size: calc(0.88rem * var(--font-scale));
+            color: var(--primary-dark);
+            font-weight: 600;
+            line-height: 1.45;
+            background: var(--primary-soft);
+            padding: 6px 10px;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .meaning-text {
+            font-size: calc(0.85rem * var(--font-scale));
+            color: var(--text-main);
+            line-height: 1.5;
+            margin-top: 6px;
+            padding: 2px 4px;
+        }
+
+        .reference-text {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-style: italic;
+        }
+
+        /* Dua Footer Action Buttons */
+        .dua-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .dua-card-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-card-action {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-sub);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-card-action:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-card-action.btn-audio {
+            color: var(--accent-green);
+        }
+
+        .btn-del-custom {
+            color: var(--accent-red);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        /* Modal Base */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .modal-card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 440px;
+            border-radius: var(--radius-xl);
+            padding: 18px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.25);
+            animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .modal-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-sub);
+            margin-bottom: 3px;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-main);
+            font-size: 0.82rem;
+            outline: none;
+            margin-bottom: 10px;
+            transition: all 0.15s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            border-color: var(--primary);
+            background: var(--card-bg);
+            box-shadow: 0 0 0 2px var(--primary-soft);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .btn-ui {
+            width: 100%;
+            padding: 9px 12px;
+            border-radius: 10px;
+            border: none;
+            background: var(--primary);
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .btn-ui:active { transform: scale(0.97); }
+
+        .btn-ui-secondary {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            margin-top: 8px;
+        }
+
+        /* Toast */
+        .toast-pill {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #0f172a;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            z-index: 300;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255,255,255,0.15);
+            white-space: nowrap;
+        }
+
+        .toast-pill.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .empty-slate {
+            text-align: center;
+            padding: 30px 16px;
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            border: 1px dashed var(--border-color);
+            color: var(--text-sub);
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- Top Header -->
+    <header class="app-header">
+        <div class="brand-group">
+            <a href="index.html" class="back-btn" title="মূল অ্যাপে ফিরে যান">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </a>
+            <div class="app-title">
+                <span>দোয়া ভাণ্ডার</span>
+                <span class="app-subtitle">ইমাম খাদ্য সেবা • আহার ও মেহমানদারী</span>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <button class="header-btn" onclick="openAddDuaModal()" title="নতুন দোয়া যোগ করুন">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </button>
+            <button class="header-btn" onclick="openImportModal()" title="দোয়া ইমপোর্ট করুন">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Banner Hero -->
+    <div class="dua-hero">
+        <div class="dua-hero-title">
+            <span>🤲 আহার ও মেহমানদারীর সুন্নাত ও দোয়া</span>
+        </div>
+        <p class="dua-hero-desc">
+            আল্লাহ তাআলার শুকরিয়া ও বরকতের উদ্দেশ্যে খাবার শুরুর দোয়া, মেহমানদারীর দোয়া, দুধ পানের দোয়া সহ দৈনন্দিন যাবতীয় মাসনূন আমল।
+        </p>
+        <div class="dua-hero-stats">
+            <span class="stat-badge" id="totalDuaCountBadge">মোট দোয়া: ১০টি</span>
+            <span class="stat-badge" id="customDuaCountBadge">কাস্টম দোয়া: ০টি</span>
+            <span class="stat-badge" style="background:rgba(16, 185, 129, 0.25);">✓ অফলাইন প্রস্তুত</span>
+        </div>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="controls-section">
+        <div class="search-box-wrap">
+            <span class="search-ico">
+                <svg class="svg-icon" style="width:15px; height:15px;" viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+            </span>
+            <input 
+                type="text" 
+                id="duaSearchInput" 
+                class="search-input" 
+                placeholder="দোয়ার নাম, আরবি, উচ্চারণ বা অর্থ দিয়ে খুঁজুন..." 
+                oninput="onDuaSearch(this.value)"
+            >
+            <button class="search-clear" id="duaSearchClearBtn" onclick="clearDuaSearch()">
+                <svg class="svg-icon" style="width:14px; height:14px;" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs-row" id="categoryTabsRow">
+            <button class="tab-chip active" onclick="setCategoryFilter('ALL', this)">সকল দোয়া</button>
+            <button class="tab-chip" onclick="setCategoryFilter('খাবার ও পানীয়', this)">খাবার ও পানীয়</button>
+            <button class="tab-chip" onclick="setCategoryFilter('মেহমানদারী', this)">মেহমানদারী</button>
+            <button class="tab-chip" onclick="setCategoryFilter('রোজা ও ইফতার', this)">রোজা ও ইফতার</button>
+            <button class="tab-chip" onclick="setCategoryFilter('CUSTOM', this)">আমার যোগ করা</button>
+        </div>
+
+        <!-- Action Tools Bar -->
+        <div class="action-tools-row">
+            <button class="btn-action-tool highlight" onclick="openAddDuaModal()">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                + নতুন দোয়া লিখুন
+            </button>
+            <button class="btn-action-tool" onclick="openImportModal()">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                দোয়া ইমপোর্ট ও ব্যাকআপ
+            </button>
+        </div>
+
+        <!-- Font Size Adjuster -->
+        <div class="font-adjust-bar">
+            <span>অক্ষর ও হরফ সাইজ:</span>
+            <div class="font-btn-group">
+                <button class="btn-font-sm" onclick="changeFontSize(-0.1)" title="ছোট হরফ">A -</button>
+                <button class="btn-font-sm" onclick="resetFontSize()" title="স্বাভাবিক হরফ">স্বাভাবিক</button>
+                <button class="btn-font-sm" onclick="changeFontSize(0.1)" title="বড় হরফ">A +</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dua Cards Container -->
+    <main class="dua-list-container" id="duaListWrap">
+        <!-- Rendered dynamically -->
+    </main>
+
+    <!-- MODAL 1: ADD NEW DUA -->
+    <div class="modal-overlay" id="addDuaModal" onclick="if(event.target===this) closeAddDuaModal();">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                    নতুন দোয়া যুক্ত করুন
+                </div>
+                <button onclick="closeAddDuaModal()" style="background:none; border:none; cursor:pointer; color:var(--text-sub);">✕</button>
+            </div>
+
+            <form onsubmit="handleSaveCustomDua(event)">
+                <label class="form-label">দোয়ার শিরোনাম (যেমন: খাবার শুরু করার দোয়া) *</label>
+                <input type="text" id="newDuaTitle" class="form-input" placeholder="দোয়ার নাম লিখুন" required>
+
+                <label class="form-label">ক্যাটাগরি</label>
+                <select id="newDuaCategory" class="form-select">
+                    <option value="খাবার ও পানীয়">খাবার ও পানীয়</option>
+                    <option value="মেহমানদারী">মেহমানদারী</option>
+                    <option value="রোজা ও ইফতার">রোজা ও ইফতার</option>
+                    <option value="সাধারণ মাসনূন">সাধারণ মাসনূন</option>
+                </select>
+
+                <label class="form-label">আরবি ইবারত (Arabic Text)</label>
+                <textarea id="newDuaArabic" class="form-textarea" placeholder="আরবিতে দোয়াটি লিখুন (যেমন: بِسْمِ اللَّهِ)" style="direction:rtl; font-family:'Amiri', serif; font-size:1.15rem;"></textarea>
+
+                <label class="form-label">বাংলা উচ্চারণ *</label>
+                <textarea id="newDuaPronunciation" class="form-textarea" placeholder="উচ্চারণ লিখুন (যেমন: বিসমিল্লাহি ওয়া আলা বারাকাতিল্লাহ)" required></textarea>
+
+                <label class="form-label">বাংলা অর্থ *</label>
+                <textarea id="newDuaMeaning" class="form-textarea" placeholder="দোয়ার অর্থ লিখুন" required></textarea>
+
+                <label class="form-label">হাদিস রেফারেন্স / ফজিলত (ঐচ্ছিক)</label>
+                <input type="text" id="newDuaRef" class="form-input" placeholder="যেমন: সুনানে আবু দাউদ: ৩৭৬৭">
+
+                <button type="submit" class="btn-ui" style="background:var(--accent-green);">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    সংরক্ষণ করুন
+                </button>
+                <button type="button" class="btn-ui btn-ui-secondary" onclick="closeAddDuaModal()">বাতিল</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: IMPORT & EXPORT DUAS -->
+    <div class="modal-overlay" id="importModal" onclick="if(event.target===this) closeImportModal();">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+                    দোয়া ইমপোর্ট ও ব্যাকআপ
+                </div>
+                <button onclick="closeImportModal()" style="background:none; border:none; cursor:pointer; color:var(--text-sub);">✕</button>
+            </div>
+
+            <!-- Import Section -->
+            <div style="background:var(--bg-color); padding:10px; border-radius:10px; border:1px solid var(--border-color); margin-bottom:12px;">
+                <div style="font-size:0.82rem; font-weight:700; margin-bottom:4px; color:var(--text-main);">📥 দোয়া ইমপোর্ট (JSON Import)</div>
+                <p style="font-size:0.7rem; color:var(--text-sub); margin-bottom:8px;">পূর্বে সেভ করা দোয়ার JSON ডাটা পেস্ট করুন অথবা ফাইল আপলোড করুন:</p>
+                
+                <input type="file" id="jsonFileInput" accept=".json,application/json" style="font-size:0.75rem; margin-bottom:6px; width:100%;" onchange="handleFileUpload(event)">
+                
+                <textarea id="importJsonTextarea" class="form-textarea" placeholder="এখানে দোয়ার JSON কোড পেস্ট করুন..." style="min-height:75px; font-family:monospace; font-size:0.75rem;"></textarea>
+                
+                <button class="btn-ui" onclick="processTextImport()" style="background:var(--primary);">
+                    তথ্য ইমপোর্ট সম্পন্ন করুন
+                </button>
+            </div>
+
+            <!-- Export Section -->
+            <div style="background:var(--bg-color); padding:10px; border-radius:10px; border:1px solid var(--border-color); margin-bottom:10px;">
+                <div style="font-size:0.82rem; font-weight:700; margin-bottom:4px; color:var(--text-main);">💾 ব্যাকআপ ও এক্সপোর্ট (Export)</div>
+                <p style="font-size:0.7rem; color:var(--text-sub); margin-bottom:8px;">আপনার দোয়ার তালিকা সুরক্ষিত রাখতে ব্যাকআপ ফাইল ডাউনলোড করুন:</p>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+                    <button class="btn-ui" onclick="downloadDuasJson()" style="background:var(--accent-green); font-size:0.76rem;">
+                        JSON ফাইল ডাউনলোড
+                    </button>
+                    <button class="btn-ui" onclick="copyDuasJson()" style="background:var(--primary-dark); font-size:0.76rem;">
+                        ক্লিপবোর্ডে কপি করুন
+                    </button>
+                </div>
+            </div>
+
+            <!-- Source HTML Files Download for Android Assets -->
+            <div style="background:var(--bg-color); padding:10px; border-radius:10px; border:1.5px solid var(--primary); margin-bottom:10px;">
+                <div style="font-size:0.82rem; font-weight:700; margin-bottom:4px; color:var(--primary);">📥 এইচটিএমএল সোর্স ফাইল ডাউনলোড (Assets)</div>
+                <p style="font-size:0.7rem; color:var(--text-sub); margin-bottom:8px;">অ্যান্ড্রয়েড অ্যাপে ব্যবহারের জন্য ফাইল দুইটি ডাউনলোড করুন:</p>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+                    <button class="btn-ui" onclick="downloadSourceFile('duya.html')" style="background:var(--accent-green); font-size:0.76rem;">
+                        📄 duya.html ডাউনলোড
+                    </button>
+                    <button class="btn-ui" onclick="downloadSourceFile('index.html')" style="background:var(--primary); font-size:0.76rem;">
+                        📄 index.html ডাউনলোড
+                    </button>
+                </div>
+            </div>
+
+            <button type="button" class="btn-ui btn-ui-secondary" onclick="closeImportModal()">বন্ধ করুন</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="toast-pill">
+        <svg class="svg-icon" style="width: 15px; height: 15px; fill: var(--accent-green);" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        <span id="toastMessage">বিজ্ঞপ্তি</span>
+    </div>
+
+</div>
+
+<script>
+    // Firebase Setup (Synced with same database)
+    const firebaseConfig = {
+        apiKey: "AIzaSyDummyKeyForConnectionSetup12345",
+        projectId: "food-list-84d75",
+        databaseURL: "https://food-list-84d75-default-rtdb.europe-west1.firebasedatabase.app/"
+    };
+
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    const db = firebase.database();
+    const duasRef = db.ref('duaData');
+
+    // Default Pre-loaded Islamic Duas
+    const DEFAULT_DUAS = [
+        {
+            id: "dua_1",
+            title: "খাবার শুরু করার দোয়া",
+            category: "খাবার ও পানীয়",
+            arabic: "بِسْمِ اللَّهِ وَعَلَى بَرَكَةِ اللَّهِ",
+            pronunciation: "বিস্‌মিল্লাহি ওয়া আলা বারাকাতিল্লাহ।",
+            meaning: "আল্লাহর নামে এবং আল্লাহর বরকতের উপর শুরু করছি।",
+            reference: "সুনানে আবু দাউদ: ৩৭৬৭, মুসতাদরাকে হাকেম: ৭১২৭।",
+            isDefault: true
+        },
+        {
+            id: "dua_2",
+            title: "শুরুতে দোয়া পড়তে ভুলে গেলে",
+            category: "খাবার ও পানীয়",
+            arabic: "بِسْمِ اللَّهِ أَوَّلَهُ وَآخِرَهُ",
+            pronunciation: "বিস্‌মিল্লাহি আউওয়ালাহু ওয়া আখিরাহু।",
+            meaning: "আল্লাহর নামে এর শুরু এবং শেষ করছি।",
+            reference: "জামে আত-তিরমিজি: ১৮৫৮, আবু দাউদ: ৩৭৬৮।",
+            isDefault: true
+        },
+        {
+            id: "dua_3",
+            title: "খাবার শেষের দোয়া",
+            category: "খাবার ও পানীয়",
+            arabic: "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ",
+            pronunciation: "আলহামদু লিল্লাহিল্লাজি আত'আমানা ওয়া সাক্বানা ওয়া জা'আলানা মুসলিমিন।",
+            meaning: "সকল প্রশংসা আল্লাহর জন্য, যিনি আমাদের আহার করিয়েছেন, পান করিয়েছেন এবং আমাদের মুসলিমদের অন্তর্ভুক্ত করেছেন।",
+            reference: "জামে আত-তিরমিজি: ৩৪৫৭, আবু দাউদ: ৩৮৫০।",
+            isDefault: true
+        },
+        {
+            id: "dua_4",
+            title: "মেহমানদারী গ্রহণকারীর দোয়া (মেহমানের পক্ষ থেকে মেজবানের জন্য)",
+            category: "মেহমানদারী",
+            arabic: "اللَّهُمَّ بَارِكْ لَهُمْ فِيمَا رَزَقْتَهُمْ، وَاغْفِرْ لَهُمْ وَارْحَمْهُمْ",
+            pronunciation: "আল্লাহুম্মা বারিক লাহুম ফিমা রাযাক্বতাহুম, ওয়াগফির লাহুম ওয়ারহামহুম।",
+            meaning: "হে আল্লাহ! আপনি তাদেরকে যে রিজিক দান করেছেন তাতে বরকত দিন, তাদেরকে ক্ষমা করুন এবং তাদের প্রতি দয়া বর্ষণ করুন।",
+            reference: "সহিহ মুসলিম: ২০৪২, মিশকাতুল মাসাবিহ: ৪২০৫।",
+            isDefault: true
+        },
+        {
+            id: "dua_5",
+            title: "দুধ পান করার দোয়া",
+            category: "খাবার ও পানীয়",
+            arabic: "اللَّهُمَّ بَارِكْ لَنَا فِيهِ وَزِدْنَا مِنْهُ",
+            pronunciation: "আল্লাহুম্মা বারিক লানা ফিহি ওয়া যিদনা মিনহু।",
+            meaning: "হে আল্লাহ! আপনি আমাদের এতে বরকত দিন এবং এর চেয়েও বেশি বৃদ্ধি করে দিন। (দুধ ছাড়া অন্য যে কোনো খাবারের ক্ষেত্রে বলতে হয় 'এর চেয়ে উত্তম কিছু দান করুন', কেবল দুধের ক্ষেত্রে বলতে হয় 'আরো বাড়িয়ে দিন')",
+            reference: "জামে আত-তিরমিজি: ৩৪৫৫, সুনানে আবু দাউদ: ৩৭৩০।",
+            isDefault: true
+        },
+        {
+            id: "dua_6",
+            title: "পানি পান করার সুন্নাত ও দোয়া",
+            category: "খাবার ও পানীয়",
+            arabic: "الْحَمْدُ لِلَّهِ الَّذِي سَقَانَا عَذْبًا فُرَاتًا بِرَحْمَتِهِ، وَلَمْ يَجْعَلْهُ مِلْحًا أُجَاجًا بِذُنُوبِنَا",
+            pronunciation: "আলহামদু লিল্লাহিল্লাজি সাক্বানা আজবান ফুরাতাম বিরাহমাতিহি, ওয়া লাম ইয়াজ'আলহু মিলহান উজাঝাম বিজুনুবিনা।",
+            meaning: "সমস্ত প্রশংসা আল্লাহর, যিনি আপন দয়ায় আমাদের মিষ্টি-সুপেয় পানি পান করালেন এবং আমাদের পাপের কারণে একে লবণাক্ত ও তিক্ত করলেন না।",
+            reference: "তাবরানি, কানজুল উম্মাল: ৪০৫১ (সুন্নাত: বসে ডান হাতে ৩ শ্বাসে পান করা)।",
+            isDefault: true
+        },
+        {
+            id: "dua_7",
+            title: "খাবার পর দস্তরখান ওঠানোর দোয়া",
+            category: "খাবার ও পানীয়",
+            arabic: "الْحَمْدُ لِلَّهِ حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ، غَيْرَ مَكْفِيٍّ وَلَا مُوَدَّعٍ وَلَا مُسْتَغْنًى عَنْهُ رَبَّنَا",
+            pronunciation: "আলহামদু লিল্লাহি হামদান কাসীরান ত্বইয়্যিবাম মুবারাকান ফীহি, গাইরা মাকফিয়্যিন ওয়ালা মুওয়াদ্দা'ইন ওয়ালা মুস্তাগনান আনহু রাব্বানা।",
+            meaning: "সকল প্রশংসা আল্লাহর—এমন প্রশংসা যা প্রচুর, পবিত্র এবং যাতে অফুরন্ত বরকত রয়েছে। যা ত্যাগ করা যায় না এবং হে আমাদের পালনকর্তা! যার মুখাপেক্ষিতা কখনো শেষ হয় না।",
+            reference: "সহিহ বুখারি: ৫৪৫৯।",
+            isDefault: true
+        },
+        {
+            id: "dua_8",
+            title: "রোজা রেখে ইফতার করার দোয়া",
+            category: "রোজা ও ইফতার",
+            arabic: "ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الأَجْرُ إِنْ شَاءَ اللَّهُ",
+            pronunciation: "জাহাবাজ জামা'উ ওয়াবতাল্লাতিল উরূকু ওয়া সাবাতাল আজরু ইনশাআল্লাহ।",
+            meaning: "পিপাসা দূরীভূত হলো, শিরা-উপশিরা সিক্ত হলো এবং ইনশাআল্লাহ প্রতিদানও সুনিশ্চিত হলো।",
+            reference: "সুনানে আবু দাউদ: ২৩৫৭, আল-হাকিম: ১৫৩৬।",
+            isDefault: true
+        },
+        {
+            id: "dua_9",
+            title: "অন্যের ঘরে বা মেহমান হয়ে ইফতার করার দোয়া",
+            category: "মেহমানদারী",
+            arabic: "أَفْطَرَ عِنْدَكُمُ الصَّائِمُونَ، وَأَكَلَ طَعَامَكُمُ الأَبْرَارُ، وَصَلَّتْ عَلَيْكُمُ الْمَلائِكَةُ",
+            pronunciation: "আফত্বারা ইনদাকুমুস সায়িমুনা, ওয়া আকালা ত্বা'আমাকুমুল আবরারু, ওয়া সাল্লাত আলাইকুমুল মালাইকাহ।",
+            meaning: "রোজাদারগণ যেন তোমাদের কাছে ইফতার করে, নেককার ব্যক্তিরা যেন তোমাদের খাবার গ্রহণ করে এবং ফেরেশতাগণ যেন তোমাদের জন্য রহমতের দোয়া করে।",
+            reference: "সুনানে আবু দাউদ: ৩৮৫৪, মুসনাদে আহমদ: ১২২০৯।",
+            isDefault: true
+        },
+        {
+            id: "dua_10",
+            title: "তৃপ্তিদায়ক খাবারের পর গুনাহ মাফের দোয়া",
+            category: "খাবার ও পানীয়",
+            arabic: "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا الطَّعَامَ وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ",
+            pronunciation: "আলহামদু লিল্লাহিল্লাজি আত'আমানি হাজাত ত্বা'আমা ওয়া রাযাক্বানিহি মিন গাইরি হাওলিম মিন্নি ওয়ালা কুওয়াহ।",
+            meaning: "সমস্ত প্রশংসা আল্লাহর জন্য, যিনি আমাকে এই আহার করালেন এবং আমার শক্তি ও সামর্থ্য ছাড়াই তা দান করলেন। (হাদিস: যে ব্যক্তি এই দোয়া পাঠ করবে, তার পূর্বের সকল সগিরা গুনাহ ক্ষমা করে দেওয়া হবে)।",
+            reference: "জামে আত-তিরমিজি: ৩৪৫৮, আবু দাউদ: ৪০২৩।",
+            isDefault: true
+        }
+    ];
+
+    let allDuas = [];
+    let customDuas = [];
+    let currentCategory = "ALL";
+    let searchQuery = "";
+    let fontScale = 1;
+    let toastTimeout = null;
+
+    window.onload = function() {
+        applyStoredTheme();
+        loadDuasCache();
+        listenToFirebaseDuas();
+        setupHistoryBack();
+    };
+
+    function applyStoredTheme() {
+        const savedTheme = localStorage.getItem('food_service_theme') || 'default';
+        if (savedTheme !== 'default') {
+            document.body.setAttribute('data-theme', savedTheme);
+        }
+    }
+
+    function setupHistoryBack() {
+        history.replaceState({ modal: null }, '');
+        window.addEventListener('popstate', function(e) {
+            const addModal = document.getElementById('addDuaModal');
+            const importModal = document.getElementById('importModal');
+            if (addModal.style.display === 'flex') {
+                addModal.style.display = 'none';
+                return;
+            }
+            if (importModal.style.display === 'flex') {
+                importModal.style.display = 'none';
+                return;
+            }
+            // Return to main index.html
+            window.location.href = 'index.html';
+        });
+    }
+
+    // Load Cache & Firebase Sync
+    function loadDuasCache() {
+        const cached = localStorage.getItem('food_service_duas_cache');
+        if (cached) {
+            try {
+                customDuas = JSON.parse(cached) || [];
+            } catch(e) {
+                customDuas = [];
+            }
+        }
+        rebuildAllDuas();
+    }
+
+    function saveDuasCache() {
+        localStorage.setItem('food_service_duas_cache', JSON.stringify(customDuas));
+    }
+
+    function listenToFirebaseDuas() {
+        duasRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data && data.customDuas) {
+                if (Array.isArray(data.customDuas)) {
+                    customDuas = data.customDuas;
+                } else {
+                    customDuas = Object.values(data.customDuas);
+                }
+                saveDuasCache();
+                rebuildAllDuas();
+            }
+        }, (err) => {
+            console.warn("Firebase Dua read failed, relying on local storage:", err);
+        });
+    }
+
+    function syncCustomDuasToFirebase() {
+        duasRef.set({
+            customDuas: customDuas,
+            lastUpdated: new Date().toISOString()
+        }).catch(err => {
+            console.error("Firebase sync error:", err);
+        });
+    }
+
+    function rebuildAllDuas() {
+        allDuas = [...DEFAULT_DUAS, ...customDuas];
+        renderDuaList();
+        updateStats();
+    }
+
+    function updateStats() {
+        document.getElementById('totalDuaCountBadge').innerText = `মোট দোয়া: ${allDuas.length}টি`;
+        document.getElementById('customDuaCountBadge').innerText = `কাস্টম দোয়া: ${customDuas.length}টি`;
+    }
+
+    // Filtering & Searching
+    function setCategoryFilter(cat, elem) {
+        currentCategory = cat;
+        const chips = document.querySelectorAll('.tab-chip');
+        chips.forEach(c => c.classList.remove('active'));
+        if (elem) elem.classList.add('active');
+        renderDuaList();
+    }
+
+    function onDuaSearch(val) {
+        searchQuery = (val || "").trim().toLowerCase();
+        document.getElementById('duaSearchClearBtn').style.display = searchQuery.length > 0 ? 'block' : 'none';
+        renderDuaList();
+    }
+
+    function clearDuaSearch() {
+        const input = document.getElementById('duaSearchInput');
+        input.value = '';
+        onDuaSearch('');
+        input.focus();
+    }
+
+    // Font Scaling
+    function changeFontSize(delta) {
+        fontScale = Math.max(0.8, Math.min(1.4, fontScale + delta));
+        document.documentElement.style.setProperty('--font-scale', fontScale);
+        showToast(`ফন্ট সাইজ: ${Math.round(fontScale * 100)}%`);
+    }
+
+    function resetFontSize() {
+        fontScale = 1;
+        document.documentElement.style.setProperty('--font-scale', fontScale);
+        showToast('স্বাভাবিক ফন্ট সাইজ সেট করা হয়েছে');
+    }
+
+    // Render Dua Cards
+    function renderDuaList() {
+        const container = document.getElementById('duaListWrap');
+        container.innerHTML = '';
+
+        const filtered = allDuas.filter(item => {
+            if (currentCategory === 'CUSTOM' && item.isDefault) return false;
+            if (currentCategory !== 'ALL' && currentCategory !== 'CUSTOM' && item.category !== currentCategory) return false;
+
+            if (searchQuery.length > 0) {
+                const searchHaystack = `${item.title} ${item.arabic || ''} ${item.pronunciation} ${item.meaning} ${item.reference || ''}`.toLowerCase();
+                if (!searchHaystack.includes(searchQuery)) return false;
+            }
+            return true;
+        });
+
+        if (filtered.length === 0) {
+            container.innerHTML = `
+                <div class="empty-slate">
+                    <div style="font-size:2rem; margin-bottom:8px;">🤲</div>
+                    <strong style="display:block; margin-bottom:4px;">কোনো দোয়া পাওয়া যায়নি</strong>
+                    <p style="font-size:0.75rem; margin-bottom:12px;">আপনার সার্চ বা ক্যাটাগরির সাথে মিল পাওয়া যায়নি।</p>
+                    <button class="btn-ui" style="max-width:180px; margin:0 auto; padding:6px 12px; font-size:0.75rem;" onclick="clearDuaSearch(); setCategoryFilter('ALL', document.querySelector('.tab-chip'));">সব দোয়া দেখুন</button>
+                </div>
+            `;
+            return;
+        }
+
+        filtered.forEach((dua, idx) => {
+            const card = document.createElement('div');
+            card.className = `dua-card ${!dua.isDefault ? 'custom-badge-card' : ''}`;
+
+            const isCustom = !dua.isDefault;
+            const categoryBadge = `<span class="category-tag">${dua.category || 'মাসনূন দোয়া'}</span>`;
+            const customBadge = isCustom ? `<span class="category-tag" style="background:var(--accent-green-soft); color:var(--accent-green); border-color:var(--accent-green);">কাস্টম</span>` : '';
+            
+            const arabicHtml = dua.arabic && dua.arabic.trim() !== '' 
+                ? `<div class="arabic-text-box">${dua.arabic}</div>` 
+                : '';
+
+            const refHtml = dua.reference && dua.reference.trim() !== ''
+                ? `<div class="reference-text">
+                     <svg class="svg-icon" style="width:12px; height:12px;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                     ${dua.reference}
+                   </div>`
+                : '';
+
+            const deleteBtnHtml = isCustom ? `
+                <button class="btn-card-action btn-del-custom" onclick="deleteCustomDua('${dua.id}')" title="দোয়াটি মুছে ফেলুন">
+                    <svg class="svg-icon" style="width:12px; height:12px;" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                    মুছুন
+                </button>
+            ` : '';
+
+            card.innerHTML = `
+                <div class="dua-header-line">
+                    <div class="dua-title-wrap">
+                        <span class="dua-index-pill">${idx + 1}</span>
+                        <div class="dua-card-title">${dua.title}</div>
+                    </div>
+                    <div style="display:flex; gap:4px; align-items:center;">
+                        ${customBadge}
+                        ${categoryBadge}
+                    </div>
+                </div>
+
+                ${arabicHtml}
+
+                <div class="dua-section-group">
+                    <div class="section-label">উচ্চারণ</div>
+                    <div class="pronunciation-text">${dua.pronunciation}</div>
+                </div>
+
+                <div class="dua-section-group">
+                    <div class="section-label">অর্থ</div>
+                    <div class="meaning-text">${dua.meaning}</div>
+                </div>
+
+                ${refHtml}
+
+                <div class="dua-card-footer">
+                    <div class="dua-card-actions">
+                        <button class="btn-card-action" onclick="copyDuaText('${dua.id}')" title="কপি করুন">
+                            <svg class="svg-icon" style="width:13px; height:13px;" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                            কপি
+                        </button>
+                        <button class="btn-card-action" onclick="shareDuaWhatsApp('${dua.id}')" title="হোয়াটসঅ্যাপে পাঠান">
+                            <svg class="svg-icon" style="width:13px; height:13px; fill:#25D366;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.892 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                            শেয়ার
+                        </button>
+                        <button class="btn-card-action btn-audio" onclick="speakDua('${dua.id}')" title="উচ্চারণ শুনুন">
+                            <svg class="svg-icon" style="width:13px; height:13px;" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                            শুনুন
+                        </button>
+                    </div>
+
+                    ${deleteBtnHtml}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // Add Custom Dua Modal Actions
+    function openAddDuaModal() {
+        document.getElementById('newDuaTitle').value = '';
+        document.getElementById('newDuaArabic').value = '';
+        document.getElementById('newDuaPronunciation').value = '';
+        document.getElementById('newDuaMeaning').value = '';
+        document.getElementById('newDuaRef').value = '';
+        document.getElementById('addDuaModal').style.display = 'flex';
+        history.pushState({ modal: 'addDua' }, '');
+    }
+
+    function closeAddDuaModal() {
+        document.getElementById('addDuaModal').style.display = 'none';
+    }
+
+    function handleSaveCustomDua(e) {
+        e.preventDefault();
+        const title = document.getElementById('newDuaTitle').value.trim();
+        const category = document.getElementById('newDuaCategory').value;
+        const arabic = document.getElementById('newDuaArabic').value.trim();
+        const pronunciation = document.getElementById('newDuaPronunciation').value.trim();
+        const meaning = document.getElementById('newDuaMeaning').value.trim();
+        const reference = document.getElementById('newDuaRef').value.trim();
+
+        if (!title || !pronunciation || !meaning) {
+            showToast('দয়া করে শিরোনাম, উচ্চারণ ও অর্থ পূরণ করুন');
+            return;
+        }
+
+        const newDua = {
+            id: "custom_" + Date.now(),
+            title,
+            category,
+            arabic,
+            pronunciation,
+            meaning,
+            reference: reference || 'সংগৃহীত',
+            isDefault: false,
+            createdAt: new Date().toISOString()
+        };
+
+        customDuas.unshift(newDua);
+        saveDuasCache();
+        syncCustomDuasToFirebase();
+        rebuildAllDuas();
+        closeAddDuaModal();
+        showToast('নতুন দোয়া সফলভাবে যুক্ত হয়েছে!');
+    }
+
+    function deleteCustomDua(id) {
+        if (!confirm('আপনি কি নিশ্চিত যে এই দোয়াটি মুছে ফেলতে চান?')) return;
+        customDuas = customDuas.filter(d => d.id !== id);
+        saveDuasCache();
+        syncCustomDuasToFirebase();
+        rebuildAllDuas();
+        showToast('দোয়াটি তালিকা থেকে মুছে ফেলা হয়েছে');
+    }
+
+    // Import / Export System
+    function openImportModal() {
+        document.getElementById('importJsonTextarea').value = '';
+        document.getElementById('jsonFileInput').value = '';
+        document.getElementById('importModal').style.display = 'flex';
+        history.pushState({ modal: 'import' }, '');
+    }
+
+    function closeImportModal() {
+        document.getElementById('importModal').style.display = 'none';
+    }
+
+    function handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('importJsonTextarea').value = e.target.result;
+        };
+        reader.readAsText(file);
+    }
+
+    function processTextImport() {
+        const raw = document.getElementById('importJsonTextarea').value.trim();
+        if (!raw) {
+            showToast('দয়া করে কোনো JSON টেক্সট পেস্ট করুন');
+            return;
+        }
+
+        try {
+            const parsed = JSON.parse(raw);
+            let itemsToImport = [];
+
+            if (Array.isArray(parsed)) {
+                itemsToImport = parsed;
+            } else if (parsed.customDuas && Array.isArray(parsed.customDuas)) {
+                itemsToImport = parsed.customDuas;
+            } else if (typeof parsed === 'object') {
+                itemsToImport = Object.values(parsed);
+            }
+
+            let addedCount = 0;
+            itemsToImport.forEach(item => {
+                if (item && (item.title || item.pronunciation)) {
+                    customDuas.push({
+                        id: item.id || ("custom_" + Date.now() + "_" + Math.floor(Math.random()*1000)),
+                        title: item.title || "নামহীন দোয়া",
+                        category: item.category || "খাবার ও পানীয়",
+                        arabic: item.arabic || "",
+                        pronunciation: item.pronunciation || item.title,
+                        meaning: item.meaning || "",
+                        reference: item.reference || "আমদানিকৃত",
+                        isDefault: false
+                    });
+                    addedCount++;
+                }
+            });
+
+            if (addedCount > 0) {
+                saveDuasCache();
+                syncCustomDuasToFirebase();
+                rebuildAllDuas();
+                closeImportModal();
+                showToast(`সফলভাবে ${addedCount}টি দোয়া ইমপোর্ট সম্পন্ন হয়েছে!`);
+            } else {
+                showToast('কোনো বৈধ দোয়ার ডাটা পাওয়া যায়নি');
+            }
+        } catch(err) {
+            console.error(err);
+            showToast('ভুল JSON ফরম্যাট! সঠিক কোড দিন');
+        }
+    }
+
+    function downloadDuasJson() {
+        const exportData = {
+            appName: "ইমাম খাদ্য সেবা - দোয়া ভাণ্ডার",
+            exportDate: new Date().toISOString(),
+            totalDuas: allDuas.length,
+            customDuas: customDuas
+        };
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData, null, 2));
+        const dlAnchor = document.createElement('a');
+        dlAnchor.setAttribute("href", dataStr);
+        dlAnchor.setAttribute("download", `imam_duas_backup_${new Date().toISOString().slice(0,10)}.json`);
+        document.body.appendChild(dlAnchor);
+        dlAnchor.click();
+        dlAnchor.remove();
+        showToast("দোয়ার ব্যাকআপ ফাইল ডাউনলোড হয়েছে");
+    }
+
+    function copyDuasJson() {
+        const exportData = {
+            exportDate: new Date().toISOString(),
+            customDuas: customDuas
+        };
+        navigator.clipboard.writeText(JSON.stringify(exportData, null, 2)).then(() => {
+            showToast("ব্যাকআপ ডাটা ক্লিপবোর্ডে কপি করা হয়েছে!");
+        });
+    }
+
+    // Copy, Share, and Audio
+    function copyDuaText(id) {
+        const dua = allDuas.find(d => d.id === id);
+        if (!dua) return;
+        let text = `🤲 ${dua.title}\n`;
+        if (dua.arabic) text += `\nআরবি: ${dua.arabic}\n`;
+        text += `\nউচ্চারণ: ${dua.pronunciation}\nঅর্থ: ${dua.meaning}\n`;
+        if (dua.reference) text += `রেফারেন্স: ${dua.reference}\n`;
+        text += `\n(ইমাম খাদ্য সেবা অ্যাপ থেকে সংগৃহীত)`;
+
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('দোয়া কপি করা হয়েছে!');
+        });
+    }
+
+    function shareDuaWhatsApp(id) {
+        const dua = allDuas.find(d => d.id === id);
+        if (!dua) return;
+        let text = `*🤲 ${dua.title}*\n`;
+        if (dua.arabic) text += `\n${dua.arabic}\n`;
+        text += `\n*উচ্চারণ:* ${dua.pronunciation}\n*অর্থ:* ${dua.meaning}\n`;
+        if (dua.reference) text += `_${dua.reference}_\n`;
+        text += `\n🕌 *ইমাম খাদ্য সেবা*`;
+
+        window.location.href = `whatsapp://send?text=${encodeURIComponent(text)}`;
+    }
+
+    function speakDua(id) {
+        const dua = allDuas.find(d => d.id === id);
+        if (!dua) return;
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const textToSpeak = `${dua.title}। উচ্চারণ: ${dua.pronunciation}। অর্থ: ${dua.meaning}`;
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.lang = 'bn-BD';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+            showToast('দোয়া পাঠ করা হচ্ছে...');
+        } else {
+            showToast('আপনার ডিভাইসে ভয়েস স্পিচ সাপোর্ট করে না');
+        }
+    }
+
+    function showToast(msg, duration = 2000) {
+        const toast = document.getElementById('toastNotification');
+        const text = document.getElementById('toastMessage');
+        text.innerText = msg;
+        toast.classList.add('show');
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            toast.classList.remove('show');
+        }, duration);
+    }
+
+    async function downloadSourceFile(fileName) {
+        showToast(fileName + " ডাউনলোড হচ্ছে...");
+        try {
+            const response = await fetch(fileName + '?t=' + Date.now());
+            if (!response.ok) throw new Error('Fetch failed');
+            const text = await response.text();
+            const blob = new Blob([text], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast(fileName + " ডাউনলোড সম্পন্ন হয়েছে!");
+        } catch (err) {
+            console.warn("Direct blob fallback:", err);
+            const a = document.createElement('a');
+            a.href = fileName;
+            a.download = fileName;
+            a.target = '_blank';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast(fileName + " ডাউনলোড শুরু হয়েছে!");
+        }
+    }
+</script>
+
+</body>
+</html>
